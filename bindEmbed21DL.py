@@ -33,6 +33,8 @@ class BindEmbed21DL(object):
 
         ps = PredefinedSplit(fold_array)
 
+        
+
         # get sequences + maximum length + labels
         sequences, max_length, labels = ProteinInformation.get_data(ids)
         embeddings = FileManager.read_embeddings(FileSetter.embeddings_input())

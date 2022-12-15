@@ -11,31 +11,31 @@ class FileSetter(object):
 
     @staticmethod
     def embeddings_input():
-        return ''
+        return './protT5/output/uniprot_embeddings.h5'
         # TODO set path to embeddings, this should be a .h5-file generated containing per-residue embeddings for all
         #  proteins with key: UniProt-ID, value: embeddings
 
     @staticmethod
     def predictions_folder():
-        return ''  # TODO set path to where predictions should be written
+        return '/users/rvinod/scratch/repos/bindPredict/pred_outputs' # TODO set path to where predictions should be written
 
     @staticmethod
     def profile_db():
         # TODO set path to pre-computed big_80 database
         # can be downloaded from ftp://rostlab.org/bindEmbed21/profile_db.tar.gz
-        return ''
+        return '/users/rvinod/scratch/data/bindEmbed21/profile_db'
 
     @staticmethod
     def lookup_fasta():
         # TODO set path to FASTA file of lookup set
         # can be downloaded from ftp://rostlab.org/bindEmbed21/lookup.fasta
-        return ''
+        return '/users/rvinod/scratch/data/bindEmbed21/lookup.fasta'
 
     @staticmethod
     def lookup_db():
         # TODO set path to pre-computed lookup database
         # can be downloaded from ftp://rostlab.org/bindEmbed21/lookup_db.tar.gz
-        return ''
+        return '/users/rvinod/scratch/data/bindEmbed21/lookup_db'
 
     @staticmethod
     def mmseqs_output():
@@ -46,7 +46,7 @@ class FileSetter(object):
 
     @staticmethod
     def query_set():
-        return ''  # TODO set path to FASTA set of query sequences to generate predictions for
+        return '/users/rvinod/scratch/repos/bindPredict/uniprot.fasta'  # TODO set path to FASTA set of query sequences to generate predictions for
 
     @staticmethod
     def mmseqs_path():

@@ -33,6 +33,8 @@ class MLPredictor(object):
         for features, target, mask, prot_id in validation_loader:
             prot_id = prot_id[0]
 
+            print('in ml predictor', prot_id)
+
             self.model.eval()
             with torch.no_grad():
                 features = features.to(self.device)

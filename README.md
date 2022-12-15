@@ -1,4 +1,4 @@
-# bindEmbed21
+# bindEmbed21 fixed bugs and plotting (adapted from the rost lab, see https://github.com/Rostlab/bindPredict for full documentation)
 
 bindEmbed21 is a method to predict whether a residue in a protein is binding to metal ions, nucleic acids (DNA or RNA), or small molecules. Towards this end, bindEmbed21 combines homology-based inference and Machine Learning. Homology-based inference is executed using MMseqs2 [1]. For the Machine Learning method, bindEmbed21DL uses ProtT5 embeddings [2] as input to a 2-layer CNN. Since bindEmbed21 is based on single sequences, it can easily be applied to any protein sequence.
 
@@ -16,24 +16,21 @@ All needed files and paths can be set in `config.py` (marked as TODOs).
 
 ## Data
 
-### Development Set
-
-The data set used for training and testing was extracted from BioLip [3]. The UniProt identifiers for the 5 splits used during cross-validation (DevSet1014), the test set (TestSet300), and the independent set of proteins added to BioLip after November 2019 (TestSetNew46) as well as the corresponding FASTA sequences and used binding annotations are made available in the `data` folder.
-
-The trained models are available in the `trained_models` folder.
-
-ProtT5 embeddings can be generated using [the bio_embeddings pipeline](https://github.com/sacdallago/bio_embeddings) [4]. To use them with `bindEmbed21`, they need to be converted to use the correct keys. A script for the conversion can be found in the folder `utils`.
-
-### Sets for homology-based inference
-For the homology-based inference (bindEmbed21HBI), query proteins will be aligned against big80 to generate profiles. Those profiles are then searched against a lookup set of proteins with known binding residues. The pre-computed MMseqs2 database files and the FASTA file for the lookup database can be downloaded here:
+wget all 3:
 
 * Pre-computed big80 DB: [ftp://rostlab.org/bindEmbed21/profile_db.tar.gz](ftp://rostlab.org/bindEmbed21/profile_db.tar.gz)
 * Pre-computed lookup DB: [ftp://rostlab.org/bindEmbed21/lookup_db.tar.gz](ftp://rostlab.org/bindEmbed21/lookup_db.tar.gz)
 * FASTA for lookup DB: [ftp://rostlab.org/bindEmbed21/lookup.fasta](ftp://rostlab.org/bindEmbed21/lookup.fasta)
+* Uniprot per residue embeddings [https://ftp.ebi.ac.uk/pub/contrib/UniProt/embeddings/current_release/UP000005640_9606/per-residue.h5]
 
-### Human proteome predictions
+## Computing Predictions
 
-We applied bindEmbed21DL as well as homology-based inference to the entire human proteome. While annotations were only available for 15% of the human proteins, homology-based inference allowed transferring annotations for 48% (9,694) and bindEmbed21DL provided binding predictions for 92% (18,663) of the human proteome. Both predictions are available in the folder `human_proteome`. For predictions made using homology-based inference, values of -1.0 refer to position which were not inferred, and therefore, were considered non-binding.
+* Download a Uniprot multifasta (or use your own)
+* Fill in [seq_path] in get_embeddings.py with your fasta
+* Use process_fasta.py to to correctly format sequence headers
+* Fill in TODOs in config.py (paths to data and where to make store predictions)
+* Run any of [run_bindEmbed21DL.py, run_bindEmbed21HBI.py, develop_bindEmbed21DL.py]
+* Use check_h5.py to look at the keys of any h5 file
 
 ## Availability
 
@@ -67,7 +64,3 @@ Littmann M, Heinzinger M, Dallago C, Weissenow K, Rost B. Protein embeddings and
 [4] Dallago C, Schütze K, Heinzinger M, Olenyi T, Littmann M, Lu AX, Yang KK, Min S, Yoon S, Morton JT, & Rost B (2021). Learned embeddings from deep learning to visualize and predict protein sets. Current Protocols, 1, e113. doi: 10.1002/cpz1.113
 
 [5] Olenyi T, Marquet C, Heinzinger M, Kröger B, Nikolova T, Bernhofer M, Sändig P, Schütze K, Littmann M, Mirdita M, Steinegger M, Dallago C, & Rost B (2022). LambdaPP: Fast and accessible protein-specific phenotype predictions. bioRxiv
-
-
-## bindPredictML17
-If you are interested in the predecessor of bindEmbed21, bindPredictML17, you can find all relevant information in the subfolder `bindPredictML17`.

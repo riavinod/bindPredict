@@ -10,8 +10,9 @@ from bindEmbed21DL import BindEmbed21DL
 
 def main():
 
-    set_name = 'example'  # TODO set a meaningful set name used for output files
+    set_name = 'binding_outputs'  # TODO set a meaningful set name used for output files
     query_fasta = FileSetter.query_set()
+    print(query_fasta)
     query_sequences = FileManager.read_fasta(query_fasta)
     query_ids = list(query_sequences.keys())
 

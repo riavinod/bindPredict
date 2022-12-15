@@ -30,6 +30,9 @@ class MyDataset(torch.utils.data.Dataset):
         prot_id = self.samples[item]
         prot_length = len(self.seqs[prot_id])
 
+        #prot_id = prot_id.split('|')[1]
+        print('in data prep', prot_id)
+
         embedding = self.embeddings[prot_id]
 
         # pad all inputs to the maximum length & add another feature to encode whether the element is a position

@@ -7,6 +7,7 @@ from pathlib import Path
 def main():
 
     prediction_folder = FileSetter.predictions_folder()
+    print('predictions folder', prediction_folder)
     Path(prediction_folder).mkdir(parents=True, exist_ok=True)
 
     model_prefix = 'trained_models/checkpoint'
